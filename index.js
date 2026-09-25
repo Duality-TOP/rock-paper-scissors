@@ -24,5 +24,17 @@ let humanScore = 0;
 let computerScore = 0;
 
 function playRound(humanChoice, computerChoice) {
-
+    if (humanChoice === computerChoice) {
+        return "Tie.";
+    } else if (
+        humanChoice === "rock" && computerChoice === "scissors" ||
+        humanChoice === "paper" && computerChoice === "rock" ||
+        humanChoice === "scissors" && computerChoice === "paper"
+    ) {
+        humanScore++;
+        console.log("You won the round! Points incremented by one.");
+    } else {
+        computerScore++;
+        console.log("The computer won the round! His points are incremented by one.");
+    }
 }
