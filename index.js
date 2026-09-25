@@ -6,8 +6,6 @@ function getComputerChoice() {
         case 1: return "paper";
         case 2: return "scissors";
     }
-
-    console.log(computerSelection);
 }
 
 function getHumanChoice() {
@@ -32,9 +30,11 @@ function playRound(humanChoice, computerChoice) {
         humanChoice === "scissors" && computerChoice === "paper"
     ) {
         humanScore++;
-        console.log("You won the round! Points incremented by one.");
+        console.log("You won the round! Your points were incremented by one.");
     } else {
         computerScore++;
-        console.log("The computer won the round! His points are incremented by one.");
+        console.log("The computer won the round! His points were incremented by one.");
     }
 }
+
+console.log(playRound("paper", "scissors"));
