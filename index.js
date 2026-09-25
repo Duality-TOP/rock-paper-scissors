@@ -31,12 +31,19 @@ function playGame() {
             humanChoice === "scissors" && computerChoice === "paper"
         ) {
             humanScore++;
-            console.log("You won the round! Your points were incremented by one.");
+            return "You won the round! Your points were incremented by one.";
         } else {
             computerScore++;
-            console.log("The computer won the round! His points were incremented by one.");
+            return "The computer won the round! His points were incremented by one.";
         }
     }
 
-    console.log(playRound("paper", "scissors"));
+    for (let i = 0; i < 5; i++) {
+        const humanSelection = getHumanChoice();
+        const computerSelection = getComputerChoice();
+
+        console.log(playRound(humanSelection, computerSelection));
+    }
 }
+
+playGame();
