@@ -1,73 +1,59 @@
 function playGame() {
     function getComputerChoice() {
-        const computerSelection = Math.floor(Math.random() * 3);
+        const random = Math.floor(Math.random() * 3);
 
-        switch (computerSelection) {
-            case 0: return "rock";
-            case 1: return "paper";
-            case 2: return "scissors";
+        switch (random) {
+            case 0: return 'rock';
+            case 1: return 'paper';
+            case 2: return 'scissors';
         }
     }
-
-    function getHumanChoice() {
-        const humanSelection = prompt("Choose rock, paper or scissors.");
-
-        switch (humanSelection.toLowerCase()) {
-            case "rock": return "rock";
-            case "paper": return "paper";
-            case "scissors": return "scissors";
-        }
-    }
-
+    
     let humanScore = 0;
     let computerScore = 0;
 
-    function playRound(humanChoice, computerChoice) {
-        if (humanChoice === computerChoice) {
-            return "Tie.";
-        } else if (
-            humanChoice === "rock" && computerChoice === "scissors" ||
-            humanChoice === "paper" && computerChoice === "rock" ||
-            humanChoice === "scissors" && computerChoice === "paper"
-        ) {
-            humanScore++;
-            return "You won the round! Your points were incremented by one.";
-        } else {
-            computerScore++;
-            return "The computer won the round! His points were incremented by one.";
-        }
+    const roundResultDisplay = document.querySelector("#round-result");
+    const humanPointsDisplay = document.querySelector("#human-points");
+    const computerPointsDisplay = document.querySelector("#cpu-points");
+    
+    function updateDisplay(roundResult) {
+        roundResultDisplay.textContent = "Round result: " + roundResult;
+        humanPointsDisplay.textContent = "Your points: " + humanScore;
+        computerPointsDisplay.textContent = "Computer's points: " + computerScore;
     }
 
-    for (let i = 0; i < 5; i++) {
-        const humanSelection = getHumanChoice();
-        const computerSelection = getComputerChoice();
-
-        console.log(playRound(humanSelection, computerSelection));
-    }
-
-    if (humanScore !== computerScore) {
-        if (humanScore > computerScore) {
-            console.log("You won the match! Both points are being set to zero.");
-            console.log(`Final scores: Player: ${humanScore}.\nComputer: ${computerScore}`);
-    
-            humanScore = 0;
-            computerScore = 0;
-        } else {
-            console.log("The computer won the match! Both points are being set to zero.");
-            console.log(`Final scores:\nPlayer: ${humanScore}\nComputer: ${computerScore}`);
-    
-            computerScore = 0;
-            humanScore = 0;
-        }
-
-    } else {
-        console.log(`Final scores:\nPlayer: ${humanScore}\nComputer: ${computerScore}`);
-        console.log("The match ended in a tie, scores are being set to zero.");
+    function endMatch() {
+        roundResultDisplay.textContent = "You've ended the match. Select any option again and the game will restart";
 
         humanScore = 0;
         computerScore = 0;
+
+        updateDisplay("The game has been resetted.");
     }
+
+    function playRound(humanSelection) {
+        const computerSelection = getComputerChoice();
+
+        if (humanSelection === computerSelection) {
+            updateDisplay("Tie in the round.");
+        } else if (
+            humanSelection === "rock" && computerSelection === "scissors" ||
+            humanSelection === "paper" && computerSelection === "rock" ||
+            humanSelection === "scissors" && computerSelection === "paper"
+        ) {
+            humanScore++;
+            updateDisplay("You won the round! Your points were incremented by one.");
+        } else {
+            computerScore++;
+            updateDisplay("The computer won the round! His points were incremented by one.");
+        }
+    }
+
+    const rockSelectionBtn = document.querySelector("#rock-selection").addEventListener("click", () => playRound("rock"));
+    const paperSelectionBtn = document.querySelector("#paper-selection").addEventListener("click", () => playRound("paper"));
+    const scissorsSelectionBtn = document.querySelector("#scissors-selection").addEventListener("click", () => playRound("scissors"));
+
+    const endMatchBtn = document.querySelector("#end-match").addEventListener("click", () => endMatch());
 }
 
 playGame();
-// yes, i know theres some repetition here, but its just a little bit
