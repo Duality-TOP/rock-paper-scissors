@@ -8,18 +8,27 @@ function playGame() {
             case 2: return 'scissors';
         }
     }
-
+    
     let humanScore = 0;
     let computerScore = 0;
 
+    const roundResultDisplay = document.querySelector("#round-result");
+    const humanPointsDisplay = document.querySelector("#human-points");
+    const computerPointsDisplay = document.querySelector("#cpu-points");
+    
     function updateDisplay(roundResult) {
-        const roundResultDisplay = document.querySelector("#round-result");
-        const humanPointsDisplay = document.querySelector("#human-points");
-        const computerPointsDisplay = document.querySelector("#cpu-points");
-
         roundResultDisplay.textContent = "Round result: " + roundResult;
         humanPointsDisplay.textContent = "Your points: " + humanScore;
         computerPointsDisplay.textContent = "Computer's points: " + computerScore;
+    }
+
+    function endMatch() {
+        roundResultDisplay.textContent = "You've ended the match. Select any option again and the game will restart";
+
+        humanScore = 0;
+        computerScore = 0;
+
+        updateDisplay("The game has been resetted.");
     }
 
     function playRound(humanSelection) {
@@ -40,9 +49,11 @@ function playGame() {
         }
     }
 
-    const rockSelection = document.querySelector("#rock-selection").addEventListener("click", () => playRound("rock"));
-    const paperSelection = document.querySelector("#paper-selection").addEventListener("click", () => playRound("paper"));
-    const scissorsSelection = document.querySelector("#scissors-selection").addEventListener("click", () => playRound("scissors"));
+    const rockSelectionBtn = document.querySelector("#rock-selection").addEventListener("click", () => playRound("rock"));
+    const paperSelectionBtn = document.querySelector("#paper-selection").addEventListener("click", () => playRound("paper"));
+    const scissorsSelectionBtn = document.querySelector("#scissors-selection").addEventListener("click", () => playRound("scissors"));
+
+    const endMatchBtn = document.querySelector("#end-match").addEventListener("click", () => endMatch());
 }
 
 playGame();
