@@ -22,7 +22,9 @@ function playGame() {
     let humanScore = 0;
     let computerScore = 0;
 
-    function playRound(humanChoice, computerChoice) {
+    function playRound(humanChoice) {
+        const computerChoice = getComputerChoice();
+
         if (humanChoice === computerChoice) {
             return "Tie.";
         } else if (
@@ -38,35 +40,9 @@ function playGame() {
         }
     }
 
-    for (let i = 0; i < 5; i++) {
-        const humanSelection = getHumanChoice();
-        const computerSelection = getComputerChoice();
-
-        console.log(playRound(humanSelection, computerSelection));
-    }
-
-    if (humanScore !== computerScore) {
-        if (humanScore > computerScore) {
-            console.log("You won the match! Both points are being set to zero.");
-            console.log(`Final scores: Player: ${humanScore}.\nComputer: ${computerScore}`);
-    
-            humanScore = 0;
-            computerScore = 0;
-        } else {
-            console.log("The computer won the match! Both points are being set to zero.");
-            console.log(`Final scores:\nPlayer: ${humanScore}\nComputer: ${computerScore}`);
-    
-            computerScore = 0;
-            humanScore = 0;
-        }
-
-    } else {
-        console.log(`Final scores:\nPlayer: ${humanScore}\nComputer: ${computerScore}`);
-        console.log("The match ended in a tie, scores are being set to zero.");
-
-        humanScore = 0;
-        computerScore = 0;
-    }
+    const rockSelection = addEventListener("click", () => playRound("rock"));
+    const paperSelection = addEventListener("click", () => playRound("paper"));
+    const scissorsSelection = addEventListener("click", () => playRound("scissors"));
 }
 
 playGame();
